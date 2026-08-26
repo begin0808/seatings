@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魔法座位指南</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Crimson+Text:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hogwarts-gold: #d4af37;
+            --parchment-bg: #f5e6c8;
+            --dark-wood: #2b1b17;
+            --ink-black: #2c2c2c;
+            --gryffindor-red: #740001;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background-color: var(--dark-wood);
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            color: var(--ink-black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: var(--hogwarts-gold);
+            font-family: 'MedievalSharp', cursive;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px #000;
+            text-align: center;
+        }
+
+        .manual-container {
+            background: var(--parchment-bg);
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            max-width: 800px;
+            width: 95%;
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            position: relative;
+            border: 8px double var(--hogwarts-gold);
+        }
+
+        .step {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(116, 0, 1, 0.3);
+        }
+
+        .step:last-child { border-bottom: none; }
+
+        .step-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: var(--gryffindor-red);
+            font-family: 'MedievalSharp', cursive;
+            margin-bottom: 10px;
+        }
+
+        .step-content {
+            font-size: 1.2em;
+            padding-left: 20px;
+        }
+        
+        ul { margin: 10px 0; }
+        
+        .highlight {
+            background: rgba(212, 175, 55, 0.3);
+            padding: 0 5px;
+            font-weight: bold;
+            border-bottom: 2px solid var(--hogwarts-gold);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            background: var(--hogwarts-gold);
+            color: var(--dark-wood);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: bold;
+            font-family: 'MedievalSharp', cursive;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: 0.2s;
+            border: 2px solid #b8860b;
+        }
+
+        .back-btn:hover {
+            background: #fff;
+            color: var(--gryffindor-red);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📜 霍格華茲魔法指南</h1>
+
+    <div class="manual-container">
+        
+        <div class="step">
+            <div class="step-title">I. 施展空間咒 (設定教室)</div>
+            <div class="step-content">
+                <p>請先決定您的魔法教室大小：</p>
+                <ul>
+                    <li><strong>排 (Cols)：</strong> 垂直的排數。</li>
+                    <li><strong>列 (Rows)：</strong> 水平的列數。</li>
+                </ul>
+                <p>輸入後，揮舞魔杖點擊 <span class="highlight">🪄 重塑魔法教室</span>，課桌將會自動排列。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-title">II. 貓頭鷹送信 (匯入名單)</div>
+            <div class="step-content">
+                <p>請準備一份 Excel 卷軸，第一列必須包含咒語標題：</p>
+                <ul>
+                    <li><strong>座號</strong></li>
+                    <li><strong>姓名</strong></li>
+                </ul>
+                <p>點擊 <span class="highlight">🦉 接收學生名單</span> 進行讀取。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-title">III. 禁忌區域 (設定停用)</div>
+            <div class="step-content">
+                <p>若某張課桌損壞或位於各種黑魔法防禦術的死角，請直接<strong>點擊該課桌</strong>。</p>
+                <p>它將被 <span class="highlight">🕸️ 蜘蛛網</span> 覆蓋，分類儀式將會跳過此處。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-title">IV. 分類儀式 (隨機安排)</div>
+            <div class="step-content">
+                <p>準備好後，點擊 <span class="highlight">✨ 分類儀式</span>。</p>
+                <p>分類帽會瞬間決定每位小巫師的座位！</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <p style="font-style: italic; color: #555;">"魔法施展完成"</p>
+        </div>
+
+    </div>
+
+    <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; justify-content: center;">
+        <a href="index.html" class="back-btn" style="background: var(--parchment-bg); color: var(--gryffindor-red); border-color: var(--gryffindor-red);">🏠 回首頁大廳</a>
+        <a href="seating_hogwarts.html" class="back-btn">⚡ 返回魔法教室</a>
+    </div>
+
+</body>
+</html>

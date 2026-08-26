@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動態隨機座位系統 · 主題入口大廳</title>
+    <meta name="description" content="全方位班級與團隊隨機座位安排系統，提供「小王子的星際旅行」與「霍格華茲魔法學院」兩種風格迥異的沈浸式座位排定體驗。">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,600;0,700;1,400&family=MedievalSharp&family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 星際小王子主題色彩 */
+            --space-bg: #0c1033;
+            --space-blue: #1a237e;
+            --space-accent: #3949ab;
+            --star-gold: #fdd835;
+            --star-glow: rgba(253, 216, 53, 0.4);
+            --rose-red: #ff4081;
+            --planet-cream: #fff9c4;
+
+            /* 霍格華茲魔法主題色彩 */
+            --magic-bg: #140d0a;
+            --magic-wood: #2b1b17;
+            --hogwarts-gold: #d4af37;
+            --hogwarts-glow: rgba(212, 175, 55, 0.45);
+            --gryffindor-red: #8b0000;
+            --parchment-bg: #f5e6c8;
+            --parchment-text: #2c1a0e;
+            
+            /* 全域色彩 */
+            --dark-surface: rgba(18, 22, 40, 0.85);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-glass: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+            background-color: #080b18;
+            color: var(--text-main);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Canvas 背景粒子 */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* 漸層背景光暈 */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(30, 41, 122, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(94, 38, 18, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at 50% 90%, rgba(20, 24, 50, 0.5) 0%, transparent 60%);
+        }
+
+        /* 主容器 */
+        .app-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 頂部導航列 */
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 28px;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 50px;
+            margin-bottom: 48px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-logo .logo-icon {
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
+        }
+
+        .nav-badges {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-pill {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Hero 區塊 */
+        .hero-section {
+            text-align: center;
+            max-width: 860px;
+            margin-bottom: 56px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, rgba(57, 73, 171, 0.25), rgba(212, 175, 55, 0.25));
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #f1f5f9;
+            font-size: 0.92rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-title {
+            font-size: clamp(2.3rem, 5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero-description {
+            font-size: clamp(1.02rem, 1.8vw, 1.2rem);
+            color: var(--text-sub);
+            max-width: 840px;
+            margin: 0 auto;
+            font-weight: 400;
+            line-height: 1.8;
+            text-wrap: balance;
+        }
+
+        .hero-description .sub-line {
+            display: inline-block;
+        }
+
+        /* 雙主題卡片容器 */
+        .portals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            width: 100%;
+            margin-bottom: 72px;
+        }
+
+        @media (max-width: 960px) {
+            .portals-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        /* 門戶卡片基礎 */
+        .portal-card {
+            position: relative;
+            border-radius: 28px;
+            padding: 44px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            padding: 2px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.02));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-8px) scale(1.015);
+        }
+
+        /* === 左側：小王子星際卡片 === */
+        .portal-card.space-theme {
+            background: linear-gradient(160deg, #101642 0%, #0d1230 60%, #080b1c 100%);
+            box-shadow: 0 20px 45px rgba(10, 16, 50, 0.6), inset 0 0 35px rgba(57, 73, 171, 0.2);
+            border: 1px solid rgba(100, 120, 255, 0.2);
+        }
+
+        .portal-card.space-theme:hover {
+            box-shadow: 0 30px 60px rgba(26, 35, 126, 0.7), 0 0 30px rgba(253, 216, 53, 0.3), inset 0 0 50px rgba(57, 73, 171, 0.35);
+            border-color: rgba(253, 216, 53, 0.5);
+        }
+
+        .space-glow-orb {
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(253, 216, 53, 0.25) 0%, rgba(255, 64, 129, 0.15) 50%, transparent 70%);
+            filter: blur(20px);
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+
+        .portal-card.space-theme:hover .space-glow-orb {
+            transform: scale(1.3);
+            filter: blur(25px);
+        }
+
+        /* === 右側：霍格華茲魔法卡片 === */
+        .portal-card.magic-theme {
+            background: linear-gradient(160deg, #24140e 0%, #1a0f0a 60%, #0e0705 100%);
+            box-shadow: 0 20px 45px rgba(20, 10, 5, 0.7), inset 0 0 35px rgba(116, 0, 1, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .portal-card.magic-theme:hover {
+            box-shadow: 0 30px 60px rgba(94, 38, 18, 0.7), 0 0 35px rgba(212, 175, 55, 0.35), inset 0 0 50px rgba(116, 0, 1, 0.3);
+            border-color: rgba(212, 175, 55, 0.65);
+        }
+
+        .magic-glow-orb {
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, rgba(139, 0, 0, 0.2) 50%, transparent 70%);
+            filter: blur(20px);
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+
+        .portal-card.magic-theme:hover .magic-glow-orb {
+            transform: scale(1.3);
+            filter: blur(25px);
+        }
+
+        /* 卡片頭部 */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .theme-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .space-badge {
+            background: rgba(253, 216, 53, 0.15);
+            color: var(--star-gold);
+            border: 1px solid rgba(253, 216, 53, 0.35);
+        }
+
+        .magic-badge {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--hogwarts-gold);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .theme-icon-box {
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+            transition: transform 0.4s ease;
+        }
+
+        .portal-card:hover .theme-icon-box {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .space-icon-box {
+            background: linear-gradient(135deg, #283593 0%, #1a237e 100%);
+            border: 2px solid var(--star-gold);
+            box-shadow: 0 0 20px rgba(253, 216, 53, 0.3);
+        }
+
+        .magic-icon-box {
+            background: linear-gradient(135deg, #4e1c12 0%, #2b1b17 100%);
+            border: 2px solid var(--hogwarts-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+        }
+
+        /* 卡片標題與引用文句 */
+        .card-title-group {
+            margin-bottom: 20px;
+        }
+
+        .card-main-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .space-theme .card-main-title {
+            font-family: 'Patrick Hand', 'Noto Sans TC', cursive, sans-serif;
+            color: #fff9c4;
+            text-shadow: 0 0 15px rgba(253, 216, 53, 0.4);
+            font-size: 2.2rem;
+        }
+
+        .magic-theme .card-main-title {
+            font-family: 'MedievalSharp', 'Crimson Text', serif;
+            color: var(--hogwarts-gold);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            font-size: 2.1rem;
+        }
+
+        .card-quote {
+            font-size: 0.95rem;
+            font-style: italic;
+            opacity: 0.85;
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        .space-theme .card-quote {
+            color: #fce4ec;
+            font-family: 'Patrick Hand', 'Noto Sans TC', cursive;
+            font-size: 1.1rem;
+        }
+
+        .magic-theme .card-quote {
+            color: #e6ccb2;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.05rem;
+        }
+
+        .card-desc {
+            font-size: 0.98rem;
+            color: #cbd5e1;
+            line-height: 1.65;
+            margin-bottom: 24px;
+        }
+
+        /* 標籤特點列表 */
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .feature-tag {
+            font-size: 0.82rem;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .space-theme .feature-tag {
+            background: rgba(40, 53, 147, 0.4);
+            color: #e0e7ff;
+            border: 1px solid rgba(129, 140, 248, 0.25);
+        }
+
+        .magic-theme .feature-tag {
+            background: rgba(78, 28, 18, 0.4);
+            color: #fde68a;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        /* 按鈕群組 */
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 15px 24px;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .space-btn-main {
+            background: linear-gradient(135deg, #fdd835 0%, #fbc02d 100%);
+            color: #1a237e;
+            font-family: 'Patrick Hand', 'Noto Sans TC', cursive;
+            font-size: 1.25rem;
+        }
+
+        .space-btn-main:hover {
+            background: linear-gradient(135deg, #ffeb3b 0%, #fdd835 100%);
+            box-shadow: 0 8px 25px rgba(253, 216, 53, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .magic-btn-main {
+            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+            color: #2b1b17;
+            font-family: 'MedievalSharp', serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .magic-btn-main:hover {
+            background: linear-gradient(135deg, #f3d77b 0%, #d4af37 100%);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-sub {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 11px 20px;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+        }
+
+        .btn-sub:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        /* 核心功能特色對照區 */
+        .features-section {
+            width: 100%;
+            max-width: 1160px;
+            margin-top: 20px;
+            padding: 48px 36px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-tag {
+            color: #38bdf8;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.18);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* 頁腳 */
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.88rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .footer-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: #f8fafc;
+        }
+
+        /* 裝飾性軌道與星芒動畫 */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        .float-anim {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+
+        /* 響應式微調 */
+        @media (max-width: 640px) {
+            .app-container {
+                padding: 20px 16px 60px;
+            }
+            .navbar {
+                padding: 12px 18px;
+                margin-bottom: 32px;
+            }
+            .nav-badges {
+                display: none;
+            }
+            .portal-card {
+                padding: 30px 22px;
+            }
+            .card-main-title {
+                font-size: 1.7rem !important;
+            }
+            .features-section {
+                padding: 32px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 粒子動畫畫布 -->
+    <canvas id="particleCanvas"></canvas>
+    <div class="ambient-glow"></div>
+
+    <div class="app-container">
+
+        <!-- 頂部導航列 -->
+        <header class="navbar">
+            <div class="brand-logo">
+                <span class="logo-icon">✨</span>
+                <span>SeatPlan Portal · 座位安排大廳</span>
+            </div>
+            <div class="nav-badges">
+                <div class="nav-pill">
+                    <span>🚀</span> 雙風格主題
+                </div>
+                <div class="nav-pill">
+                    <span>⚡</span> 100% 離線隱私安全
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero 標題區 -->
+        <section class="hero-section">
+            <div class="hero-tag">
+                <span>🎯</span> 智慧班級與團隊座位管理系統
+            </div>
+            <h1 class="hero-title">選擇您的座位宇宙傳送門</h1>
+            <p class="hero-description">
+                <span class="sub-line">專為教師、活動策劃與團隊主管打造的動態座位系統。</span>
+                <span class="sub-line">無論是充滿童心想像的「星際銀河」，還是莊嚴神秘的「霍格華茲魔法大廳」，</span>
+                <span class="sub-line">一鍵點選即可開啟沈浸式座次安排。</span>
+            </p>
+        </section>
+
+        <!-- 雙主題卡片傳送門 -->
+        <main class="portals-grid">
+
+            <!-- 門戶 1：小王子的星際旅行 -->
+            <div class="portal-card space-theme float-anim" style="animation-delay: 0s;" onclick="location.href='seating.html';">
+                <div class="space-glow-orb"></div>
+                
+                <div>
+                    <div class="card-header">
+                        <span class="theme-badge space-badge">🪐 B-612 星球宇宙</span>
+                        <div class="theme-icon-box space-icon-box">
+                            <span>🚀</span>
+                        </div>
+                    </div>
+
+                    <div class="card-title-group">
+                        <h2 class="card-main-title">小王子的星際旅行</h2>
+                        <span class="card-quote">「真正重要的東西，用眼睛是看不見的。」</span>
+                        <p class="card-desc">
+                            將教室與活動空間幻化為璀璨的行星軌道。在星系深藍與星塵金黃的童話星空中，讓每一次座位隨機排定都如同一場浪漫的星際探險。
+                        </p>
+                    </div>
+
+                    <div class="feature-tags">
+                        <span class="feature-tag">🌟 星際座標矩陣</span>
+                        <span class="feature-tag">☄️ 流星劃過動效</span>
+                        <span class="feature-tag">🌹 玫瑰守護座次</span>
+                        <span class="feature-tag">📄 Excel 星籍名單</span>
+                    </div>
+                </div>
+
+                <div class="card-actions" onclick="event.stopPropagation();">
+                    <a href="seating.html" class="btn-main space-btn-main">
+                        <span>🚀 開啟星際座位表</span>
+                    </a>
+                    <a href="instructions.html" class="btn-sub">
+                        <span>📖 查看星球導覽手冊</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 門戶 2：霍格華茲魔法學院 -->
+            <div class="portal-card magic-theme float-anim" style="animation-delay: -3s;" onclick="location.href='seating_hogwarts.html';">
+                <div class="magic-glow-orb"></div>
+                
+                <div>
+                    <div class="card-header">
+                        <span class="theme-badge magic-badge">⚡ 霍格華茲大廳</span>
+                        <div class="theme-icon-box magic-icon-box">
+                            <span>🏰</span>
+                        </div>
+                    </div>
+
+                    <div class="card-title-group">
+                        <h2 class="card-main-title">霍格華茲魔法學院</h2>
+                        <span class="card-quote">「決定我們成為什麼樣的人，是我們的選擇。」</span>
+                        <p class="card-desc">
+                            走入四大學院的莊嚴古堡，以分類帽的神秘魔法為學員分配座席。古典羊皮紙質地與復古金邊，為課堂注入滿滿儀式感與魔法驚喜。
+                        </p>
+                    </div>
+
+                    <div class="feature-tags">
+                        <span class="feature-tag">🎩 分類帽儀式</span>
+                        <span class="feature-tag">📜 古老羊皮紙介面</span>
+                        <span class="feature-tag">🔮 空間擴展咒 (1~20列)</span>
+                        <span class="feature-tag">🛡️ 四大學院徽章</span>
+                    </div>
+                </div>
+
+                <div class="card-actions" onclick="event.stopPropagation();">
+                    <a href="seating_hogwarts.html" class="btn-main magic-btn-main">
+                        <span>⚡ 開啟魔法座位表</span>
+                    </a>
+                    <a href="instructions_hogwarts.html" class="btn-sub">
+                        <span>📜 閱讀魔法使用指南</span>
+                    </a>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- 核心功能特點區塊 -->
+        <section class="features-section">
+            <div class="section-header">
+                <span class="section-tag">Core Features</span>
+                <h3 class="section-title">兩套主題共享的強大功能</h3>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-circle">📊</div>
+                    <h4 class="feature-title">Excel 智慧批次匯入</h4>
+                    <p class="feature-desc">支援標準 Excel (.xlsx) 名單檔案匯入與匯出，自動解析姓名、座號與性別設定。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-circle">📐</div>
+                    <h4 class="feature-title">彈性行列自訂空間</h4>
+                    <p class="feature-desc">支援 1~15 排與 1~20 列的任意矩陣排列，輕鬆適應大小教室、多組別與特殊場地佈局。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-circle">🔄</div>
+                    <h4 class="feature-title">講台與黑板視角反轉</h4>
+                    <p class="feature-desc">支援一鍵切換「教師前視角」與「學生面向講台視角」，在大螢幕投影與實體查找時更加直覺。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-circle">🛡️</div>
+                    <h4 class="feature-title">純前端極速私隱保護</h4>
+                    <p class="feature-desc">所有名冊資料與隨機演算法 100% 於您的瀏覽器本地執行，無需聯網上傳，安全無虞。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 頁尾資訊 -->
+        <footer class="footer">
+            <p>動態隨機座位系統 · Dynamic Seating Arrangement Portal</p>
+            <div class="footer-links">
+                <a href="seating.html" class="footer-link">小王子星際版</a>
+                <span>•</span>
+                <a href="instructions.html" class="footer-link">小王子指南</a>
+                <span>•</span>
+                <a href="seating_hogwarts.html" class="footer-link">霍格華茲魔法版</a>
+                <span>•</span>
+                <a href="instructions_hogwarts.html" class="footer-link">霍格華茲指南</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Canvas 動態粒子背景腳本 -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2.5 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.speedY = (Math.random() - 0.5) * 0.4;
+                    this.alpha = Math.random() * 0.7 + 0.2;
+                    this.fadeSpeed = Math.random() * 0.01 + 0.003;
+                    this.isMagic = this.x > width / 2; // 右側為金色魔法光屑，左側為星光
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.alpha += this.fadeSpeed;
+
+                    if (this.alpha > 0.85 || this.alpha < 0.15) {
+                        this.fadeSpeed = -this.fadeSpeed;
+                    }
+
+                    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                        this.reset();
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+
+                    if (this.x < width * 0.5) {
+                        // 星際藍白與星金
+                        if (Math.random() > 0.6) {
+                            ctx.fillStyle = `rgba(253, 216, 53, ${this.alpha})`;
+                            ctx.shadowColor = 'rgba(253, 216, 53, 0.8)';
+                        } else {
+                            ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                            ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+                        }
+                    } else {
+                        // 魔法金紅與暖黃
+                        if (Math.random() > 0.4) {
+                            ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+                            ctx.shadowColor = 'rgba(212, 175, 55, 0.8)';
+                        } else {
+                            ctx.fillStyle = `rgba(255, 140, 0, ${this.alpha})`;
+                            ctx.shadowColor = 'rgba(255, 80, 0, 0.6)';
+                        }
+                    }
+
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            // 初始化粒子
+            const particleCount = Math.min(Math.floor(window.innerWidth / 14), 100);
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+    </script>
+</body>
+</html>

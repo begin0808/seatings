@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B-612 星球導覽手冊</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --space-blue: #1a237e;
+            --star-gold: #fdd835;
+            --planet-cream: #fff9c4;
+            --text-color: #2c3e50;
+            --step-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Patrick Hand', 'Noto Sans TC', cursive, sans-serif;
+            background-color: var(--space-blue);
+            /* 星空背景 */
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            
+            color: var(--planet-cream);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: var(--star-gold);
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(253, 216, 53, 0.5);
+            text-align: center;
+        }
+
+        /* 手冊卡片 */
+        .manual-container {
+            background: var(--planet-cream);
+            color: var(--text-color);
+            max-width: 800px;
+            width: 95%;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            border: 4px dashed var(--space-blue);
+        }
+
+        /* 步驟區塊 */
+        .step {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--space-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .icon {
+            font-size: 1.5em;
+        }
+
+        .step-content {
+            font-size: 1.1em;
+            padding-left: 50px;
+        }
+        
+        ul {
+            margin: 10px 0;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+
+        /* 返回按鈕 */
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            background: var(--star-gold);
+            color: var(--space-blue);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(253, 216, 53, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* 重點提示 */
+        .highlight {
+            background: #ffe082;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .step-content { padding-left: 0; }
+            h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📖 B-612 星球導覽手冊</h1>
+
+    <div class="manual-container">
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="icon">🪐</span>
+                1. 設定星系座標 (決定座位數量)
+            </div>
+            <div class="step-content">
+                <p>每個教室都是一個獨特的星系。請先在網頁上方輸入教室的座位排列方式：</p>
+                <ul>
+                    <li><strong>排 (Cols)：</strong> 直的直行數量。</li>
+                    <li><strong>列 (Rows)：</strong> 橫的橫列數量。</li>
+                </ul>
+                <p>輸入完畢後，點擊 <span class="highlight">🪐 重塑星系</span>，星球就會依照您的設定長出來！</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-title">
+                <span class="icon">📜</span>
+                2. 邀請旅伴 (匯入學生名單)
+            </div>
+            <div class="step-content">
+                <p>請準備一份 Excel 檔案（.xlsx），裡面必須包含第一列標題：</p>
+                <ul>
+                    <li><strong>座號</strong></li>
+                    <li><strong>姓名</strong></li>
+                </ul>
+                <p>點擊 <span class="highlight">📜 點此選擇名單 Excel</span> 按鈕將名單匯入。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-title">
+                <span class="icon">🌱</span>
+                3. 星球管理 (設定停用座位)
+            </div>
+            <div class="step-content">
+                <p>如果某些位置損壞或不安排學生，請直接<strong>點擊該星球</strong>。</p>
+                <p>星球會長出 <span class="highlight">猴麵包樹 (🌱)</span>，代表該位置已變成「禁區」，系統不會安排學生坐在那裡。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-title">
+                <span class="icon">✨</span>
+                4. 星際傳送 (隨機產生座位)
+            </div>
+            <div class="step-content">
+                <p>一切準備就緒後，點擊 <span class="highlight">✨ 星際傳送</span>。</p>
+                <p>系統會瞬間將所有旅伴隨機傳送到可居住的星球上！</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-title">
+                <span class="icon">🐑</span>
+                5. 留下紀錄 (匯出與重置)
+            </div>
+            <div class="step-content">
+                <ul>
+                    <li><strong>匯出 Excel：</strong> 點擊 <span class="highlight">🐑 幫我畫一張座位表</span>，可以下載目前的座位圖檔（格式會依照您的座位排列自動排版）。</li>
+                    <li><strong>重置：</strong> 點擊 <span class="highlight">🧹 清理星球</span>，將所有設定清空，重新開始。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <p style="color: #795548; font-style: italic;">"真正重要的東西，用眼睛是看不見的。" —— 但座位表還是要用眼睛看清楚喔！</p>
+        </div>
+
+    </div>
+
+    <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; justify-content: center;">
+        <a href="index.html" class="back-btn" style="background: #ffffff; color: var(--text-color); box-shadow: 0 4px 15px rgba(255,255,255,0.3);">🏠 回首頁大廳</a>
+        <a href="seating.html" class="back-btn">🚀 返回星際座位表</a>
+    </div>
+
+</body>
+</html>
