@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>動態隨機座位系統 · 主題入口大廳</title>
-    <meta name="description" content="全方位班級與團隊隨機座位安排系統，提供「小王子的星際旅行」與「霍格華茲魔法學院」兩種風格迥異的沈浸式座位排定體驗。">
+    <title>教師專用動態座位系統 · 主題入口大廳</title>
+    <meta name="description" content="專為學校教師打造的動態座位系統，提供「小王子的星際旅行」與「霍格華茲魔法學院」雙主題沉浸式隨機排座體驗，支援座號快速生成、轉學缺號智慧剔除與 Excel 名冊匯入。">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,600;0,700;1,400&family=MedievalSharp&family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -45,13 +47,15 @@
         }
 
         body {
-            font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             background-color: #080b18;
             color: var(--text-main);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Canvas 背景粒子 */
@@ -372,14 +376,14 @@
         }
 
         .space-theme .card-main-title {
-            font-family: 'Patrick Hand', 'Noto Sans TC', cursive, sans-serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif, sans-serif;
             color: #fff9c4;
             text-shadow: 0 0 15px rgba(253, 216, 53, 0.4);
             font-size: 2.2rem;
         }
 
         .magic-theme .card-main-title {
-            font-family: 'MedievalSharp', 'Crimson Text', serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             color: var(--hogwarts-gold);
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
             font-size: 2.1rem;
@@ -395,13 +399,13 @@
 
         .space-theme .card-quote {
             color: #fce4ec;
-            font-family: 'Patrick Hand', 'Noto Sans TC', cursive;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             font-size: 1.1rem;
         }
 
         .magic-theme .card-quote {
             color: #e6ccb2;
-            font-family: 'Crimson Text', serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             font-size: 1.05rem;
         }
 
@@ -465,7 +469,7 @@
         .space-btn-main {
             background: linear-gradient(135deg, #fdd835 0%, #fbc02d 100%);
             color: #1a237e;
-            font-family: 'Patrick Hand', 'Noto Sans TC', cursive;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             font-size: 1.25rem;
         }
 
@@ -478,7 +482,7 @@
         .magic-btn-main {
             background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
             color: #2b1b17;
-            font-family: 'MedievalSharp', serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             font-size: 1.2rem;
             letter-spacing: 1px;
         }
@@ -663,12 +667,12 @@
         <!-- 頂部導航列 -->
         <header class="navbar">
             <div class="brand-logo">
-                <span class="logo-icon">✨</span>
-                <span>SeatPlan Portal · 座位安排大廳</span>
+                <span class="logo-icon">🏫</span>
+                <span>SeatPlan Portal · 專為學校教師打造的動態座位系統</span>
             </div>
             <div class="nav-badges">
                 <div class="nav-pill">
-                    <span>🚀</span> 雙風格主題
+                    <span>🎒</span> 班級教學排座神器
                 </div>
                 <div class="nav-pill">
                     <span>⚡</span> 100% 離線隱私安全
@@ -679,20 +683,20 @@
         <!-- Hero 標題區 -->
         <section class="hero-section">
             <div class="hero-tag">
-                <span>🎯</span> 智慧班級與團隊座位管理系統
+                <span>🏫</span> 專為學校教師打造 · 智慧班級動態座位系統
             </div>
-            <h1 class="hero-title">選擇您的座位宇宙傳送門</h1>
+            <h1 class="hero-title">選擇您的班級座位傳送門</h1>
             <p class="hero-description">
-                <span class="sub-line">專為教師、活動策劃與團隊主管打造的動態座位系統。</span>
-                <span class="sub-line">無論是充滿童心想像的「星際銀河」，還是莊嚴神秘的「霍格華茲魔法大廳」，</span>
-                <span class="sub-line">一鍵點選即可開啟沈浸式座次安排。</span>
+                <span class="sub-line">專為學校教師打造的動態座位系統。</span>
+                <span class="sub-line">不想匯入名冊？一秒設定座號範圍，更支援轉學缺號智慧剔除與視覺化點選！</span>
+                <span class="sub-line">無論是充滿童心想像的「星際銀河」，還是莊嚴神秘的「霍格華茲魔法大廳」，一鍵帶領全班投入趣味排座！</span>
             </p>
         </section>
 
         <!-- 雙主題卡片傳送門 -->
         <main class="portals-grid">
 
-            <!-- 門戶 1：小王子的星際旅行 -->
+            <!-- 主題 1：小王子的星際旅行 -->
             <div class="portal-card space-theme float-anim" style="animation-delay: 0s;" onclick="location.href='seating.html';">
                 <div class="space-glow-orb"></div>
                 
@@ -708,15 +712,15 @@
                         <h2 class="card-main-title">小王子的星際旅行</h2>
                         <span class="card-quote">「真正重要的東西，用眼睛是看不見的。」</span>
                         <p class="card-desc">
-                            將教室與活動空間幻化為璀璨的行星軌道。在星系深藍與星塵金黃的童話星空中，讓每一次座位隨機排定都如同一場浪漫的星際探險。
+                            將教室課桌幻化為璀璨的行星軌道。在星系深藍與星塵金黃的童話星空中，讓班級每一次隨機換座位都如同一場浪漫歡樂的星際探險。
                         </p>
                     </div>
 
                     <div class="feature-tags">
-                        <span class="feature-tag">🌟 星際座標矩陣</span>
-                        <span class="feature-tag">☄️ 流星劃過動效</span>
-                        <span class="feature-tag">🌹 玫瑰守護座次</span>
-                        <span class="feature-tag">📄 Excel 星籍名單</span>
+                        <span class="feature-tag">🔢 純座號/缺號快排</span>
+                        <span class="feature-tag">🌟 星際座標排列</span>
+                        <span class="feature-tag">☄️ 流星換座動效</span>
+                        <span class="feature-tag">📄 Excel 班級名冊</span>
                     </div>
                 </div>
 
@@ -730,7 +734,7 @@
                 </div>
             </div>
 
-            <!-- 門戶 2：霍格華茲魔法學院 -->
+            <!-- 主題 2：霍格華茲魔法學院 -->
             <div class="portal-card magic-theme float-anim" style="animation-delay: -3s;" onclick="location.href='seating_hogwarts.html';">
                 <div class="magic-glow-orb"></div>
                 
@@ -746,15 +750,15 @@
                         <h2 class="card-main-title">霍格華茲魔法學院</h2>
                         <span class="card-quote">「決定我們成為什麼樣的人，是我們的選擇。」</span>
                         <p class="card-desc">
-                            走入四大學院的莊嚴古堡，以分類帽的神秘魔法為學員分配座席。古典羊皮紙質地與復古金邊，為課堂注入滿滿儀式感與魔法驚喜。
+                            走入四大學院的莊嚴古堡，以分類帽的神秘魔法為全班學生分配座席。古典羊皮紙質地與復古金邊，為日常課堂注入滿滿儀式感與魔法驚喜。
                         </p>
                     </div>
 
                     <div class="feature-tags">
-                        <span class="feature-tag">🎩 分類帽儀式</span>
+                        <span class="feature-tag">🔢 座號與缺號咒語</span>
+                        <span class="feature-tag">🎩 分類帽分發儀式</span>
                         <span class="feature-tag">📜 古老羊皮紙介面</span>
                         <span class="feature-tag">🔮 空間擴展咒 (1~20列)</span>
-                        <span class="feature-tag">🛡️ 四大學院徽章</span>
                     </div>
                 </div>
 
@@ -774,39 +778,39 @@
         <section class="features-section">
             <div class="section-header">
                 <span class="section-tag">Core Features</span>
-                <h3 class="section-title">兩套主題共享的強大功能</h3>
+                <h3 class="section-title">專為課堂打造的強大排座功能</h3>
             </div>
 
             <div class="features-grid">
                 <div class="feature-card">
+                    <div class="feature-icon-circle">🔢</div>
+                    <h4 class="feature-title">免匯入！座號與缺號快排</h4>
+                    <p class="feature-desc">無名冊時直接依座號（1~35號）快速排座。遇轉學或缺號（如3號、18號），一鍵輸入或直接點擊號碼球即可智慧剔除！</p>
+                </div>
+
+                <div class="feature-card">
                     <div class="feature-icon-circle">📊</div>
-                    <h4 class="feature-title">Excel 智慧批次匯入</h4>
-                    <p class="feature-desc">支援標準 Excel (.xlsx) 名單檔案匯入與匯出，自動解析姓名、座號與性別設定。</p>
+                    <h4 class="feature-title">Excel 班級名冊匯入</h4>
+                    <p class="feature-desc">支援標準 Excel (.xlsx) 名單檔案匯入與匯出，自動解析姓名、座號，匯出具備美觀教室格線的座位表。</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon-circle">📐</div>
                     <h4 class="feature-title">彈性行列自訂空間</h4>
-                    <p class="feature-desc">支援 1~15 排與 1~20 列的任意矩陣排列，輕鬆適應大小教室、多組別與特殊場地佈局。</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon-circle">🔄</div>
-                    <h4 class="feature-title">講台與黑板視角反轉</h4>
-                    <p class="feature-desc">支援一鍵切換「教師前視角」與「學生面向講台視角」，在大螢幕投影與實體查找時更加直覺。</p>
+                    <p class="feature-desc">支援 1~15 直排與 1~20 橫列的自由配置，輕鬆適應大小教室、單雙人座、特殊走道或小組排排坐。</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon-circle">🛡️</div>
-                    <h4 class="feature-title">純前端極速私隱保護</h4>
-                    <p class="feature-desc">所有名冊資料與隨機演算法 100% 於您的瀏覽器本地執行，無需聯網上傳，安全無虞。</p>
+                    <h4 class="feature-title">純前端極速隱私保護</h4>
+                    <p class="feature-desc">學生姓名與座號 100% 於您的瀏覽器本地運算，免上傳任何伺服器，嚴格守護校園學生個資安全。</p>
                 </div>
             </div>
         </section>
 
         <!-- 頁尾資訊 -->
         <footer class="footer">
-            <p>動態隨機座位系統 · Dynamic Seating Arrangement Portal</p>
+            <p>專為學校教師打造的動態座位系統 · Dynamic Seating Arrangement Portal</p>
             <div class="footer-links">
                 <a href="seating.html" class="footer-link">小王子星際版</a>
                 <span>•</span>

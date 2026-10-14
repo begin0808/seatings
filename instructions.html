@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B-612 星球導覽手冊</title>
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --space-blue: #1a237e;
@@ -15,7 +17,7 @@
         }
 
         body {
-            font-family: 'Patrick Hand', 'Noto Sans TC', cursive, sans-serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             background-color: var(--space-blue);
             /* 星空背景 */
             background-image: 
@@ -126,37 +128,50 @@
 </head>
 <body>
 
-    <h1>📖 B-612 星球導覽手冊</h1>
+    <h1>📖 B-612 班級座位導覽手冊
+        <span style="font-size: 0.45em; display: block; color: #fff; font-weight: normal; margin-top: 5px;">專為學校教師打造 · 智慧排座使用教學</span>
+    </h1>
 
     <div class="manual-container">
         
         <div class="step">
             <div class="step-title">
                 <span class="icon">🪐</span>
-                1. 設定星系座標 (決定座位數量)
+                1. 設定星系座標 (決定課桌排列)
             </div>
             <div class="step-content">
-                <p>每個教室都是一個獨特的星系。請先在網頁上方輸入教室的座位排列方式：</p>
+                <p>每個班級教室都是一個獨特的星系。請先在網頁上方輸入教室的座位排列方式：</p>
                 <ul>
-                    <li><strong>排 (Cols)：</strong> 直的直行數量。</li>
-                    <li><strong>列 (Rows)：</strong> 橫的橫列數量。</li>
+                    <li><strong>直排 (Cols)：</strong> 直的直行數量（預設 6 排）。</li>
+                    <li><strong>橫列 (Rows)：</strong> 橫的橫列數量（預設 6 列）。</li>
                 </ul>
-                <p>輸入完畢後，點擊 <span class="highlight">🪐 重塑星系</span>，星球就會依照您的設定長出來！</p>
+                <p>輸入完畢後，點擊 <span class="highlight">🪐 重塑星系</span>，課桌星球就會依照您的設定排列長出！</p>
             </div>
         </div>
 
         <div class="step">
             <div class="step-title">
-                <span class="icon">📜</span>
-                2. 邀請旅伴 (匯入學生名單)
+                <span class="icon">🔢</span>
+                2. 班級學生名單與座號設定 (兩種模式自由選)
             </div>
             <div class="step-content">
-                <p>請準備一份 Excel 檔案（.xlsx），裡面必須包含第一列標題：</p>
-                <ul>
-                    <li><strong>座號</strong></li>
-                    <li><strong>姓名</strong></li>
-                </ul>
-                <p>點擊 <span class="highlight">📜 點此選擇名單 Excel</span> 按鈕將名單匯入。</p>
+                <p>為貼合學校老師日常教學情境，系統提供兩種極致彈性的名單設定模式：</p>
+                
+                <div style="background: rgba(26, 35, 126, 0.05); border: 1px solid #c5cae9; padding: 12px 16px; border-radius: 10px; margin-bottom: 12px;">
+                    <p style="font-weight: bold; color: var(--space-blue); margin-bottom: 6px;">✨ 模式 A：純座號快排（免匯入名冊，超快速！）</p>
+                    <p>不用準備任何 Excel，直接輸入座號區間（例如 1 ~ 35 號），並提供貼心人數快捷按鈕（25人、30人、35人、40人或配合課桌數）。</p>
+                    <p style="margin-top: 8px;"><strong>⚡ 各班缺號／轉學生超便利處理（兩種方式）：</strong></p>
+                    <ul style="margin-top: 4px;">
+                        <li><strong>方式 1（文字快速過濾）：</strong> 班上有同學轉學或缺號？在缺號輸入框輸入 <span class="highlight">3, 18</span>（以逗號或空格隔開皆可），系統即刻剔除該座號！</li>
+                        <li><strong>方式 2（視覺化點選剔除）：</strong> 下方會即時列出所有號碼球，直接點一下該座號（例如點 3 號），立即標記為 <span class="highlight" style="background:#ffebee; color:#c62828;">❌ 缺號</span>（刪除線）；再點一下即可隨時復原！</li>
+                        <li><strong>即時狀態看板：</strong> 自動計算在籍學生人數，並即時提醒老師課桌數是否足夠。</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(253, 216, 53, 0.12); border: 1px solid #ffe082; padding: 12px 16px; border-radius: 10px;">
+                    <p style="font-weight: bold; color: #795548; margin-bottom: 6px;">📑 模式 B：Excel 班級名冊匯入</p>
+                    <p>若需要顯示學生真實姓名，請準備包含「座號」與「姓名」欄位的 Excel 檔案（.xlsx），點擊 <span class="highlight">📜 點此選擇名單 Excel</span> 即可讀取全班名冊。</p>
+                </div>
             </div>
         </div>
 

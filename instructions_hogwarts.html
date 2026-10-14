@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>魔法座位指南</title>
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Crimson+Text:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --hogwarts-gold: #d4af37;
@@ -15,7 +17,7 @@
         }
 
         body {
-            font-family: 'Crimson Text', serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             background-color: var(--dark-wood);
             background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
             color: var(--ink-black);
@@ -28,7 +30,7 @@
 
         h1 {
             color: var(--hogwarts-gold);
-            font-family: 'MedievalSharp', cursive;
+            font-family: 'Cinzel', 'Noto Sans TC', serif;
             font-size: 3em;
             margin-bottom: 30px;
             text-shadow: 2px 2px 4px #000;
@@ -59,7 +61,7 @@
             font-size: 1.6em;
             font-weight: bold;
             color: var(--gryffindor-red);
-            font-family: 'MedievalSharp', cursive;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             margin-bottom: 10px;
         }
 
@@ -86,7 +88,7 @@
             text-decoration: none;
             font-size: 1.3em;
             font-weight: bold;
-            font-family: 'MedievalSharp', cursive;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             border-radius: 4px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             transition: 0.2s;
@@ -101,31 +103,44 @@
 </head>
 <body>
 
-    <h1>📜 霍格華茲魔法指南</h1>
+    <h1>📜 霍格華茲魔法指南
+        <span style="font-size: 0.45em; display: block; color: var(--parchment-bg); font-weight: normal; margin-top: 5px; font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;">專為學校教師打造 · 班級排座魔法秘笈</span>
+    </h1>
 
     <div class="manual-container">
         
         <div class="step">
-            <div class="step-title">I. 施展空間咒 (設定教室)</div>
+            <div class="step-title">I. 施展空間咒 (設定教室排列)</div>
             <div class="step-content">
-                <p>請先決定您的魔法教室大小：</p>
+                <p>請先決定您的魔法教室格局與課桌數量：</p>
                 <ul>
-                    <li><strong>排 (Cols)：</strong> 垂直的排數。</li>
-                    <li><strong>列 (Rows)：</strong> 水平的列數。</li>
+                    <li><strong>直排 (Cols)：</strong> 垂直直行數量（預設 6 排）。</li>
+                    <li><strong>橫列 (Rows)：</strong> 水平橫列數量（預設 6 列）。</li>
                 </ul>
-                <p>輸入後，揮舞魔杖點擊 <span class="highlight">🪄 重塑魔法教室</span>，課桌將會自動排列。</p>
+                <p>輸入後，揮舞魔杖點擊 <span class="highlight">🪄 重塑魔法教室</span>，課桌將會自動組裝排列。</p>
             </div>
         </div>
 
         <div class="step">
-            <div class="step-title">II. 貓頭鷹送信 (匯入名單)</div>
+            <div class="step-title">II. 巫師名單與座號咒語 (雙模式任選)</div>
             <div class="step-content">
-                <p>請準備一份 Excel 卷軸，第一列必須包含咒語標題：</p>
-                <ul>
-                    <li><strong>座號</strong></li>
-                    <li><strong>姓名</strong></li>
-                </ul>
-                <p>點擊 <span class="highlight">🦉 接收學生名單</span> 進行讀取。</p>
+                <p>為方便教授現場隨機排位，系統備有兩種學生名單咒語：</p>
+                
+                <div style="background: rgba(116, 0, 1, 0.06); border: 1px solid rgba(116, 0, 1, 0.2); padding: 12px 16px; border-radius: 4px; margin-bottom: 12px;">
+                    <p style="font-weight: bold; color: var(--gryffindor-red); margin-bottom: 6px;">🪄 模式 A：純座號快排（免名冊咒語，極速排座！）</p>
+                    <p>不用準備任何 Excel 卷軸，直接設定全班座號區間（例如 1 ~ 35 號），附帶班級人數快捷鍵（25人、30人、35人、40人或配合課桌數）。</p>
+                    <p style="margin-top: 8px;"><strong>⚡ 轉學生與缺號座號剔除咒：</strong></p>
+                    <ul style="margin-top: 4px;">
+                        <li><strong>文字速查剔除：</strong> 在缺號欄位輸入 <span class="highlight">3, 18</span>，魔法將自動排除這些已轉學或請假的座號。</li>
+                        <li><strong>魔力徽章點選：</strong> 下方展示 1~35 號羊皮紙徽章，直接以魔杖點擊該座號（例如點 3 號），即刻切換為 <span class="highlight" style="background:#ffebee; color:#c62828;">❌ 缺號暫離</span>；再次點擊即可重返在籍！</li>
+                        <li><strong>即時魔力看板：</strong> 自動計算在籍巫師人數，並確認教室席位是否充裕。</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.4); padding: 12px 16px; border-radius: 4px;">
+                    <p style="font-weight: bold; color: #5d4037; margin-bottom: 6px;">🦉 模式 B：貓頭鷹郵件（匯入 Excel 學生卷軸）</p>
+                    <p>若需顯示學生中文大名，可準備包含「座號」與「姓名」欄位的 Excel 卷軸（.xlsx），點擊 <span class="highlight">🦉 接收學生名單</span> 即可召喚全班名冊。</p>
+                </div>
             </div>
         </div>
 

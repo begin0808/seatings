@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>霍格華茲魔法學院 - 動態座位表</title>
     <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Crimson+Text:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --gryffindor-red: #740001;
@@ -20,7 +22,7 @@
         }
 
         body {
-            font-family: 'Crimson Text', 'Microsoft JhengHei', serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             background-color: var(--dark-wood);
             background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png'), linear-gradient(to bottom, #1a100c, #3e2723);
             background-blend-mode: overlay;
@@ -34,7 +36,7 @@
         }
 
         h1, h2, h3, .btn, #capacity-counter {
-            font-family: 'MedievalSharp', cursive;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
         }
 
         h1 {
@@ -51,7 +53,7 @@
             display: block;
             color: #ccc;
             margin-top: 5px;
-            font-family: 'Crimson Text', serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             font-style: italic;
         }
 
@@ -92,7 +94,7 @@
             border: 1px solid var(--ravenclaw-blue);
             display: inline-block;
             transition: 0.2s;
-            font-family: 'Crimson Text', serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
         }
         .help-link:hover {
             background: #fff;
@@ -279,7 +281,7 @@
         .seat.empty .seat-name {
             color: var(--magic-glow);
             text-shadow: 0 0 5px var(--magic-glow);
-            font-family: 'MedievalSharp', cursive;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             opacity: 0.7;
         }
 
@@ -302,7 +304,7 @@
             border-radius: 2px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.5);
             font-weight: bold;
-            font-family: 'Crimson Text', serif;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             transform: rotate(-2deg);
             width: 85%;
             text-align: center;
@@ -353,31 +355,313 @@
             font-size: 1.3em;
             text-shadow: 0 1px 1px rgba(255,255,255,0.5);
         }
-        
+
         input[type="file"] { display: none; }
         
         .file-upload-label {
             display: inline-block;
-            padding: 8px 15px;
+            padding: 8px 18px;
             background: var(--parchment-bg);
             border: 2px dashed var(--gryffindor-red);
             border-radius: 6px;
             cursor: pointer;
             color: var(--gryffindor-red);
             font-weight: bold;
-            font-family: 'MedievalSharp', cursive;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             transition: 0.3s;
         }
         .file-upload-label:hover { 
             background: #fff; 
             box-shadow: 0 0 10px var(--gryffindor-red);
+            transform: translateY(-1px);
+        }
+
+        /* 霍格華茲魔法名單模式分頁 */
+        .roster-mode-tabs {
+            display: inline-flex;
+            background: rgba(43, 27, 23, 0.08);
+            padding: 4px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            gap: 6px;
+            border: 1px solid #8d6e63;
+        }
+
+        .mode-tab-btn {
+            background: transparent;
+            color: var(--dark-wood);
+            border: 1px solid transparent;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+        }
+
+        .mode-tab-btn:hover {
+            color: var(--gryffindor-red);
+            background: rgba(212, 175, 55, 0.15);
+        }
+
+        .mode-tab-btn.active {
+            background: var(--gryffindor-red);
+            color: var(--hogwarts-gold);
+            border-color: var(--hogwarts-gold);
+            box-shadow: 0 4px 10px rgba(116, 0, 1, 0.35);
+        }
+
+        .roster-panel {
+            background: rgba(255, 255, 255, 0.45);
+            border: 2px dashed #8d6e63;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .seat-range-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .range-inputs {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: var(--dark-wood);
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+        }
+
+        .range-inputs input[type="number"] {
+            width: 58px;
+            padding: 4px 6px;
+            border: 2px solid var(--dark-wood);
+            background: #fff;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1.1em;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-weight: bold;
+            color: var(--dark-wood);
+        }
+
+        .preset-btns {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .preset-title {
+            font-size: 0.95em;
+            color: #5d4037;
+            font-weight: bold;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+        }
+
+        .pill-btn {
+            background: #fff;
+            border: 1px solid #8d6e63;
+            color: var(--dark-wood);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            cursor: pointer;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .pill-btn:hover {
+            background: var(--parchment-bg);
+            border-color: var(--gryffindor-red);
+            color: var(--gryffindor-red);
+            transform: translateY(-1px);
+        }
+
+        .pill-btn.fit-btn {
+            background: #e8f5e9;
+            border-color: #2e7d32;
+            color: #1b5e20;
+        }
+
+        /* 缺號管理盒 */
+        .missing-seats-box {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid #bcaaa4;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin-top: 8px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .missing-input-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .missing-input-label {
+            font-weight: bold;
+            color: var(--gryffindor-red);
+            font-size: 1.05em;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .missing-input-field {
+            padding: 5px 12px;
+            border: 2px solid var(--gryffindor-red);
+            border-radius: 4px;
+            font-size: 1.1em;
+            width: 170px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--gryffindor-red);
+            background: #fffdf7;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+        }
+
+        .missing-input-field:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(116, 0, 1, 0.4);
+            background: #fff;
+        }
+
+        .clear-exclude-btn {
+            background: #ffebee;
+            color: var(--gryffindor-red);
+            border: 1px solid #ef9a9a;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .clear-exclude-btn:hover {
+            background: #ffcdd2;
+        }
+
+        .interactive-pills-desc {
+            font-size: 0.95em;
+            color: #5d4037;
+            margin-bottom: 8px;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+        }
+
+        .interactive-pills-desc span.badge-tip {
+            color: var(--gryffindor-red);
+            font-weight: bold;
+        }
+
+        /* 號碼球清單容器 */
+        .seat-pills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            align-items: center;
+            max-height: 125px;
+            overflow-y: auto;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 6px;
+            border: 1px solid #d7ccc8;
+        }
+
+        .seat-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 0.95em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            position: relative;
+        }
+
+        /* 在籍號碼球 */
+        .seat-pill.active {
+            background: var(--parchment-bg);
+            color: var(--dark-wood);
+            border: 2px solid var(--hogwarts-gold);
+        }
+
+        .seat-pill.active:hover {
+            transform: scale(1.22);
+            background: #fff;
+            color: var(--gryffindor-red);
+            border-color: var(--gryffindor-red);
+            box-shadow: 0 4px 10px rgba(116, 0, 1, 0.4);
+            z-index: 5;
+        }
+
+        /* 缺號號碼球 */
+        .seat-pill.excluded {
+            background: #d7ccc8;
+            color: #8d6e63;
+            border: 2px dashed #a1887f;
+            text-decoration: line-through;
+            opacity: 0.65;
+        }
+
+        .seat-pill.excluded:hover {
+            transform: scale(1.15);
+            background: #ffebee;
+            color: var(--gryffindor-red);
+            border-color: #e57373;
+            text-decoration: none;
+            opacity: 1;
+            z-index: 5;
+        }
+
+        /* 統計摘要看板 */
+        .roster-summary-badge {
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--hogwarts-gold);
+            border-radius: 4px;
+            font-size: 1.05em;
+            color: var(--dark-wood);
+            font-weight: bold;
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            display: inline-block;
+        }
+
+        .roster-summary-badge .highlight-num {
+            color: var(--gryffindor-red);
+            font-size: 1.2em;
+            margin: 0 2px;
         }
     </style>
 </head>
 <body>
 
     <h1>霍格華茲魔法學院
-        <span>座位安排魔法書</span>
+        <span>專為學校教師打造 · 班級座位魔法書</span>
     </h1>
 
     <div class="controls">
@@ -394,11 +678,11 @@
         <h3>1. 施展空間咒 (設定座位)</h3>
         <div class="input-group">
             <div class="input-wrapper">
-                <label for="colsInput">排 (Cols):</label>
+                <label for="colsInput">直排 (Cols):</label>
                 <input type="number" id="colsInput" value="6" min="1" max="15">
             </div>
             <div class="input-wrapper">
-                <label for="rowsInput">列 (Rows):</label>
+                <label for="rowsInput">橫列 (Rows):</label>
                 <input type="number" id="rowsInput" value="6" min="1" max="20">
             </div>
             <button class="btn create" onclick="updateGridDimensions()">🪄 重塑魔法教室</button>
@@ -406,10 +690,67 @@
         
         <hr style="margin: 20px 0; border: 0; border-top: 1px dashed #8d6e63;">
 
-        <h3>2. 貓頭鷹郵件 (匯入名單)</h3>
-        <br>
-        <label for="upload" class="file-upload-label">🦉 點此接收學生名單 (Excel)</label>
-        <input type="file" id="upload" accept=".xlsx, .xls" />
+        <h3>2. 班級巫師名單與座號咒語</h3>
+        
+        <div class="roster-mode-tabs">
+            <button type="button" class="mode-tab-btn active" id="tabSeatNoBtn" onclick="switchRosterMode('seatNo')">
+                🔢 純座號快排（免名冊咒語）
+            </button>
+            <button type="button" class="mode-tab-btn" id="tabExcelBtn" onclick="switchRosterMode('excel')">
+                🦉 貓頭鷹郵件（匯入 Excel）
+            </button>
+        </div>
+
+        <!-- 模式 A：純座號面板 -->
+        <div id="panelSeatNo" class="roster-panel">
+            <div class="seat-range-bar">
+                <div class="range-inputs">
+                    <label for="seatStart">座號：</label>
+                    <input type="number" id="seatStart" value="1" min="1" max="99" onchange="onSeatRangeChanged()">
+                    <span>到</span>
+                    <input type="number" id="seatEnd" value="35" min="1" max="99" onchange="onSeatRangeChanged()">
+                    <span>號</span>
+                </div>
+                <div class="preset-btns">
+                    <span class="preset-title">班級人數：</span>
+                    <button type="button" class="pill-btn" onclick="setSeatRange(1, 25)">25人</button>
+                    <button type="button" class="pill-btn" onclick="setSeatRange(1, 30)">30人</button>
+                    <button type="button" class="pill-btn" onclick="setSeatRange(1, 35)">35人</button>
+                    <button type="button" class="pill-btn" onclick="setSeatRange(1, 40)">40人</button>
+                    <button type="button" class="pill-btn fit-btn" onclick="setSeatRangeToCapacity()">配合課桌數</button>
+                </div>
+            </div>
+
+            <!-- 缺號（轉學）設定區塊 -->
+            <div class="missing-seats-box">
+                <div class="missing-input-row">
+                    <label class="missing-input-label" for="excludedInput">
+                        <span>🚫 暫離魔法界 / 缺號座號</span> (以逗號或空格隔開)：
+                    </label>
+                    <input type="text" id="excludedInput" class="missing-input-field" placeholder="例：3, 18 或 3 18" value="3, 18" oninput="handleExcludedTextInput()">
+                    <button type="button" class="clear-exclude-btn" onclick="clearExcludedSeats()" title="全員到齊">🔄 全員到齊</button>
+                </div>
+                
+                <div class="interactive-pills-desc">
+                    <span>💡 <span class="badge-tip">魔力標籤點選</span>：直接點擊下方羊皮紙徽章，可切換「在籍巫師 / ❌ 缺號暫離」：</span>
+                </div>
+
+                <!-- 互動式號碼標籤容器 -->
+                <div id="seatPillsContainer" class="seat-pills-container"></div>
+            </div>
+
+            <div id="seatNoSummaryBadge" class="roster-summary-badge">
+                <!-- 由 JS 動態更新 -->
+            </div>
+        </div>
+
+        <!-- 模式 B：Excel 匯入面板 -->
+        <div id="panelExcel" class="roster-panel" style="display: none;">
+            <p class="hint" style="margin-bottom: 12px;">準備包含「座號」與「姓名」欄位的羊皮紙 Excel (.xlsx) 檔案：</p>
+            <label for="upload" class="file-upload-label">🦉 點此接收學生名單 (Excel)</label>
+            <input type="file" id="upload" accept=".xlsx, .xls" />
+            <div id="excelSummary" style="margin-top: 10px; font-weight: bold; color: var(--gryffindor-red);"></div>
+        </div>
         
         <hr style="margin: 20px 0; border: 0; border-top: 1px dashed #8d6e63;">
         
@@ -434,7 +775,7 @@
     </div>
 
     <div class="grid-container" id="classroom">
-        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -444,7 +785,11 @@
             const fileLabel = document.querySelector('.file-upload-label');
             const capacityCounter = document.getElementById('capacity-counter');
             
+            // 名單模式與座號缺號狀態
+            let currentRosterMode = 'seatNo'; // 'seatNo' | 'excel'
+            let excelStudentsData = [];
             let studentsData = [];
+            let excludedSeatNumbers = new Set([3, 18]); // 預設示範 3號與18號暫離缺號
             
             // 預設 6排 x 6列
             let currentCols = 6;
@@ -466,15 +811,13 @@
                     currentRows = r;
                     totalSeats = currentRows * currentCols;
                     
-                    // 重置資料
-                    studentsData = [];
                     statusMsg.textContent = '';
-                    fileLabel.innerHTML = `🦉 點此接收學生名單 (Excel)`;
                     
                     // 重新產生網格
                     initGrid();
                     statusMsg.style.color = '#3e2723';
                     statusMsg.textContent = `教室空間已重組為 ${currentCols} 排 X ${currentRows} 列。`;
+                    updateRosterDataAndSummary();
                 }
             }
 
@@ -503,6 +846,7 @@
                         }
                         
                         updateCapacity();
+                        updateRosterDataAndSummary();
                     });
 
                     gridContainer.appendChild(seat);
@@ -522,6 +866,196 @@
                     capacityCounter.style.color = 'var(--magic-glow)';
                     capacityCounter.style.borderColor = 'var(--hogwarts-gold)';
                 }
+                return available;
+            }
+
+            function getActiveSeatsCount() {
+                return document.querySelectorAll('.seat:not(.disabled)').length;
+            }
+
+            // ==================== 班級座號與缺號管理核心 ====================
+
+            // 切換名單模式 (純座號 vs Excel)
+            window.switchRosterMode = function(mode) {
+                currentRosterMode = mode;
+                const tabSeatNo = document.getElementById('tabSeatNoBtn');
+                const tabExcel = document.getElementById('tabExcelBtn');
+                const panelSeatNo = document.getElementById('panelSeatNo');
+                const panelExcel = document.getElementById('panelExcel');
+
+                if (mode === 'seatNo') {
+                    tabSeatNo.classList.add('active');
+                    tabExcel.classList.remove('active');
+                    panelSeatNo.style.display = 'block';
+                    panelExcel.style.display = 'none';
+                } else {
+                    tabSeatNo.classList.remove('active');
+                    tabExcel.classList.add('active');
+                    panelSeatNo.style.display = 'none';
+                    panelExcel.style.display = 'block';
+                }
+                updateRosterDataAndSummary();
+            };
+
+            // 讀取當前座號範圍
+            function getSeatRange() {
+                let start = parseInt(document.getElementById('seatStart').value);
+                let end = parseInt(document.getElementById('seatEnd').value);
+                if (isNaN(start) || start < 1) start = 1;
+                if (isNaN(end) || end < 1) end = 1;
+                if (start > end) {
+                    const temp = start;
+                    start = end;
+                    end = temp;
+                }
+                return { start, end };
+            }
+
+            // 快捷設定範圍
+            window.setSeatRange = function(start, end) {
+                document.getElementById('seatStart').value = start;
+                document.getElementById('seatEnd').value = end;
+                renderSeatPills();
+                updateRosterDataAndSummary();
+            };
+
+            // 配合課桌可用數設定
+            window.setSeatRangeToCapacity = function() {
+                const activeCount = getActiveSeatsCount();
+                document.getElementById('seatStart').value = 1;
+                document.getElementById('seatEnd').value = activeCount > 0 ? activeCount : 36;
+                renderSeatPills();
+                updateRosterDataAndSummary();
+            };
+
+            window.onSeatRangeChanged = function() {
+                renderSeatPills();
+                updateRosterDataAndSummary();
+            };
+
+            // 處理缺號文字輸入框
+            window.handleExcludedTextInput = function() {
+                const rawText = document.getElementById('excludedInput').value;
+                const matches = rawText.match(/\d+/g);
+                excludedSeatNumbers.clear();
+                if (matches) {
+                    matches.forEach(m => {
+                        const num = parseInt(m);
+                        if (!isNaN(num) && num > 0) excludedSeatNumbers.add(num);
+                    });
+                }
+                refreshPillsStatus();
+                updateRosterDataAndSummary();
+            };
+
+            // 清除缺號（全部在籍）
+            window.clearExcludedSeats = function() {
+                excludedSeatNumbers.clear();
+                document.getElementById('excludedInput').value = '';
+                refreshPillsStatus();
+                updateRosterDataAndSummary();
+            };
+
+            // 點擊號碼球切換缺號/在籍
+            window.toggleSeatPill = function(num) {
+                if (excludedSeatNumbers.has(num)) {
+                    excludedSeatNumbers.delete(num);
+                } else {
+                    excludedSeatNumbers.add(num);
+                }
+                // 同步至文字輸入框
+                const sorted = Array.from(excludedSeatNumbers).sort((a,b)=>a-b);
+                document.getElementById('excludedInput').value = sorted.join(', ');
+                refreshPillsStatus();
+                updateRosterDataAndSummary();
+            };
+
+            // 渲染所有號碼球
+            function renderSeatPills() {
+                const container = document.getElementById('seatPillsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+
+                const { start, end } = getSeatRange();
+                for (let i = start; i <= end; i++) {
+                    const pill = document.createElement('div');
+                    pill.className = 'seat-pill';
+                    pill.dataset.seatNo = i;
+                    pill.textContent = i;
+                    pill.addEventListener('click', () => toggleSeatPill(i));
+                    container.appendChild(pill);
+                }
+                refreshPillsStatus();
+            }
+
+            // 更新號碼球在籍/缺號視覺狀態
+            function refreshPillsStatus() {
+                const container = document.getElementById('seatPillsContainer');
+                if (!container) return;
+                const pills = container.querySelectorAll('.seat-pill');
+                pills.forEach(pill => {
+                    const no = parseInt(pill.dataset.seatNo);
+                    if (excludedSeatNumbers.has(no)) {
+                        pill.className = 'seat-pill excluded';
+                        pill.title = `第 ${no} 號 (暫離魔法界/缺號，點擊可恢復在籍)`;
+                    } else {
+                        pill.className = 'seat-pill active';
+                        pill.title = `第 ${no} 號 (在籍巫師，點擊可標記為缺號)`;
+                    }
+                });
+            }
+
+            // 同步名單資料與統計看板
+            function updateRosterDataAndSummary() {
+                const activeSeatsCount = getActiveSeatsCount();
+                const summaryBadge = document.getElementById('seatNoSummaryBadge');
+
+                if (currentRosterMode === 'seatNo') {
+                    const { start, end } = getSeatRange();
+                    const activeNumbers = [];
+                    for (let i = start; i <= end; i++) {
+                        if (!excludedSeatNumbers.has(i)) {
+                            activeNumbers.push(i);
+                        }
+                    }
+
+                    // 純座號模式資料結構
+                    studentsData = activeNumbers.map(no => ({
+                        name: `${no} 號`,
+                        number: no
+                    }));
+
+                    const excludedList = Array.from(excludedSeatNumbers).filter(n => n >= start && n <= end).sort((a,b)=>a-b);
+                    const excludedText = excludedList.length > 0 
+                        ? `<span style="color:#d32f2f;">${excludedList.join(', ')} 號 (${excludedList.length} 人)</span>` 
+                        : '<span style="color:#2e7d32;">無</span>';
+
+                    const isEnough = activeSeatsCount >= studentsData.length;
+                    const diff = activeSeatsCount - studentsData.length;
+                    const spaceStatus = isEnough 
+                        ? `<span style="color:#2e7d32;">空間充足 (餘 ${diff} 課桌) 🟢</span>` 
+                        : `<span style="color:#d32f2f; font-weight:bold;">課桌不足 (缺少 ${Math.abs(diff)} 席) ⚠️</span>`;
+
+                    if (summaryBadge) {
+                        summaryBadge.innerHTML = `
+                            全班學號：<strong>${start} ~ ${end} 號</strong> ｜ 
+                            缺號暫離：<strong>${excludedText}</strong> ｜ 
+                            實際在籍巫師：<span class="highlight-num">${studentsData.length}</span> 位 ｜ 
+                            魔力狀態：${spaceStatus}
+                        `;
+                    }
+                } else {
+                    // Excel 模式
+                    studentsData = [...excelStudentsData];
+                    const excelSummary = document.getElementById('excelSummary');
+                    if (excelSummary) {
+                        if (studentsData.length > 0) {
+                            excelSummary.innerHTML = `✨ 已召喚名冊：${studentsData.length} 位小巫師 ｜ 課桌：${activeSeatsCount} 個`;
+                        } else {
+                            excelSummary.innerHTML = `尚未選取 Excel 卷軸`;
+                        }
+                    }
+                }
             }
 
             // 3. 匯入
@@ -539,13 +1073,14 @@
                         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
                         const jsonData = XLSX.utils.sheet_to_json(firstSheet);
                         
-                        studentsData = jsonData.map(row => {
+                        excelStudentsData = jsonData.map(row => {
                             const name = row['姓名'] || row['Name'] || row['name'];
                             const number = row['座號'] || row['No'] || row['id'];
                             if (name) return { name, number: number || '' };
                             return null;
                         }).filter(item => item !== null);
 
+                        updateRosterDataAndSummary();
                         statusMsg.style.color = '#1a472a';
                         statusMsg.innerHTML = `✨ 成功召喚 ${studentsData.length} 位小巫師！`;
                     } catch (error) {
@@ -566,8 +1101,12 @@
 
             // 5. 產生
             window.generateSeating = function() {
+                if (currentRosterMode === 'seatNo') {
+                    updateRosterDataAndSummary();
+                }
+
                 if (studentsData.length === 0) {
-                    alert('請先匯入學生名單卷軸！');
+                    alert(currentRosterMode === 'seatNo' ? '目前沒有在籍巫師！請確認座號範圍與缺號設定。' : '請先匯入學生名單卷軸！');
                     return;
                 }
 
@@ -575,7 +1114,7 @@
                 const activeSeats = allSeats.filter(seat => !seat.classList.contains('disabled'));
 
                 if (activeSeats.length < studentsData.length) {
-                    alert(`梅林的鬍子啊！座位不夠！\n學生有 ${studentsData.length} 人\n可用課桌只有 ${activeSeats.length} 個。`);
+                    alert(`梅林的鬍子啊！課桌不夠！\n學生有 ${studentsData.length} 位\n可用魔力課桌只有 ${activeSeats.length} 個。\n請點擊「重塑魔法教室」擴充行列，或點擊解除蜘蛛網禁區！`);
                     return;
                 }
 
@@ -598,7 +1137,10 @@
                 });
 
                 statusMsg.style.color = '#d4af37';
-                statusMsg.innerHTML = `🪄 分類完成！${studentsData.length} 位學生已就座。`;
+                const excludedInfo = (currentRosterMode === 'seatNo' && excludedSeatNumbers.size > 0)
+                    ? `（已剔除缺號：${Array.from(excludedSeatNumbers).sort((a,b)=>a-b).join(', ')} 號）`
+                    : '';
+                statusMsg.innerHTML = `🪄 分類完成！${studentsData.length} 位學生已就座。${excludedInfo}`;
             }
 
             // 6. 重置
@@ -606,8 +1148,12 @@
                 if(confirm('確定要施展「去去武器走」，重置所有課桌嗎？')) {
                     initGrid(); 
                     statusMsg.textContent = '';
-                    studentsData = [];
-                    fileLabel.innerHTML = `🦉 點此接收學生名單 (Excel)`;
+                    if (currentRosterMode === 'excel') {
+                        excelStudentsData = [];
+                        studentsData = [];
+                        fileLabel.innerHTML = `🦉 點此接收學生名單 (Excel)`;
+                    }
+                    updateRosterDataAndSummary();
                 }
             }
 
@@ -617,13 +1163,19 @@
                 
                 let exportData = [];
                 
-                exportData.push(["霍格華茲魔法學院 - 座位配置圖"]);
-                exportData.push([`配置：${currentCols} 排 X ${currentRows} 列`, `紀錄時間：${new Date().toLocaleString()}`]);
+                exportData.push(["霍格華茲魔法學院 - 班級座位配置圖"]);
+                
+                const excludedList = Array.from(excludedSeatNumbers).sort((a,b)=>a-b);
+                const modeNote = currentRosterMode === 'seatNo' 
+                    ? `模式：座號快排（在籍：${studentsData.length} 位${excludedList.length > 0 ? '，缺號：' + excludedList.join(', ') + '號' : ''}）`
+                    : `模式：Excel 卷軸名冊（人數：${studentsData.length} 位）`;
+
+                exportData.push([`配置：${currentCols} 排 X ${currentRows} 列`, modeNote, `紀錄時間：${new Date().toLocaleString()}`]);
                 exportData.push([]); 
                 
                 let podiumRow = Array(currentCols).fill("");
                 let centerIndex = Math.floor((currentCols - 1) / 2);
-                podiumRow[centerIndex] = "【教授講台】";
+                podiumRow[centerIndex] = "【🧙‍♂️ 教授講台】";
                 exportData.push(podiumRow);
                 exportData.push([]); 
 
@@ -634,10 +1186,14 @@
                     if (seat.classList.contains('disabled')) {
                         cellContent = "🕸️\n(禁區)";
                     } else if (seat.classList.contains('occupied')) {
-                         const name = seat.querySelector('.seat-name').innerText;
-                         const noSpan = seat.querySelector('.seat-number');
-                         const no = noSpan ? noSpan.innerText : "";
-                         cellContent = no ? `[${no}] ${name}` : name;
+                        const name = seat.querySelector('.seat-name').innerText;
+                        const noSpan = seat.querySelector('.seat-number');
+                        const no = noSpan ? noSpan.innerText : "";
+                        if (name === `${no} 號` || name === no) {
+                            cellContent = `${no} 號`;
+                        } else {
+                            cellContent = no ? `[${no}] ${name}` : name;
+                        }
                     } else {
                         cellContent = "🈳\n(空位)";
                     }
@@ -663,12 +1219,15 @@
                 ws['!cols'] = wscols;
 
                 const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, "魔法座位表");
+                XLSX.utils.book_append_sheet(wb, ws, "魔法班級座位表");
 
-                XLSX.writeFile(wb, "霍格華茲座位表.xlsx");
+                XLSX.writeFile(wb, "霍格華茲班級座位表.xlsx");
             }
 
+            // 啟動初始化
             initGrid();
+            renderSeatPills();
+            updateRosterDataAndSummary();
         });
     </script>
 </body>
