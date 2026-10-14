@@ -603,7 +603,7 @@
             position: relative;
         }
 
-        /* 在籍號碼球 */
+        /* 入座號碼球 */
         .seat-pill.active {
             background: var(--parchment-bg);
             color: var(--dark-wood);
@@ -722,18 +722,18 @@
                 </div>
             </div>
 
-            <!-- 缺號（轉學）設定區塊 -->
+            <!-- 缺號（轉出／休學等）設定區塊 -->
             <div class="missing-seats-box">
                 <div class="missing-input-row">
                     <label class="missing-input-label" for="excludedInput">
-                        <span>🚫 暫離魔法界 / 缺號座號</span> (以逗號或空格隔開)：
+                        <span>🚫 缺號／不排座座號</span> (轉出、休學或暫離，以逗號或空格隔開)：
                     </label>
                     <input type="text" id="excludedInput" class="missing-input-field" placeholder="例：3, 18（無缺號則留空）" value="" oninput="handleExcludedTextInput()">
-                    <button type="button" class="clear-exclude-btn" onclick="clearExcludedSeats()" title="全員到齊">🔄 全員到齊</button>
+                    <button type="button" class="clear-exclude-btn" onclick="clearExcludedSeats()" title="全體出席入座">🔄 全員入座</button>
                 </div>
                 
                 <div class="interactive-pills-desc">
-                    <span>💡 <span class="badge-tip">魔力標籤點選</span>：直接點擊下方羊皮紙徽章，可切換「在籍巫師 / ❌ 缺號暫離」：</span>
+                    <span>💡 <span class="badge-tip">魔力標籤點選</span>：直接點擊下方羊皮紙徽章，可切換「入座巫師 / ❌ 缺號暫離」：</span>
                 </div>
 
                 <!-- 互動式號碼標籤容器 -->
@@ -949,7 +949,7 @@
                 updateRosterDataAndSummary();
             };
 
-            // 清除缺號（全部在籍）
+            // 清除缺號（全員入座）
             window.clearExcludedSeats = function() {
                 excludedSeatNumbers.clear();
                 document.getElementById('excludedInput').value = '';
@@ -957,7 +957,7 @@
                 updateRosterDataAndSummary();
             };
 
-            // 點擊號碼球切換缺號/在籍
+            // 點擊號碼球切換缺號/入座
             window.toggleSeatPill = function(num) {
                 if (excludedSeatNumbers.has(num)) {
                     excludedSeatNumbers.delete(num);
@@ -989,7 +989,7 @@
                 refreshPillsStatus();
             }
 
-            // 更新號碼球在籍/缺號視覺狀態
+            // 更新號碼球入座/缺號視覺狀態
             function refreshPillsStatus() {
                 const container = document.getElementById('seatPillsContainer');
                 if (!container) return;
@@ -998,10 +998,10 @@
                     const no = parseInt(pill.dataset.seatNo);
                     if (excludedSeatNumbers.has(no)) {
                         pill.className = 'seat-pill excluded';
-                        pill.title = `第 ${no} 號 (暫離魔法界/缺號，點擊可恢復在籍)`;
+                        pill.title = `第 ${no} 號 (暫離魔法界/缺號，點擊可恢復入座)`;
                     } else {
                         pill.className = 'seat-pill active';
-                        pill.title = `第 ${no} 號 (在籍巫師，點擊可標記為缺號)`;
+                        pill.title = `第 ${no} 號 (入座巫師，點擊可設為缺號暫離)`;
                     }
                 });
             }
@@ -1040,8 +1040,7 @@
                     if (summaryBadge) {
                         summaryBadge.innerHTML = `
                             全班學號：<strong>${start} ~ ${end} 號</strong> ｜ 
-                            缺號暫離：<strong>${excludedText}</strong> ｜ 
-                            實際在籍巫師：<span class="highlight-num">${studentsData.length}</span> 位 ｜ 
+                            暫離缺號：<strong>${excludedText}</strong> ｜ 實際入座巫師：<span class="highlight-num">${studentsData.length}</span> 位 ｜ 
                             魔力狀態：${spaceStatus}
                         `;
                     }
@@ -1107,7 +1106,7 @@
                 }
 
                 if (studentsData.length === 0) {
-                    alert(currentRosterMode === 'seatNo' ? '目前沒有在籍巫師！請確認座號範圍與缺號設定。' : '請先匯入學生名單卷軸！');
+                    alert(currentRosterMode === 'seatNo' ? '目前沒有入座巫師！請確認座號範圍與缺號設定。' : '請先匯入學生名單卷軸！');
                     return;
                 }
 
@@ -1168,7 +1167,7 @@
                 
                 const excludedList = Array.from(excludedSeatNumbers).sort((a,b)=>a-b);
                 const modeNote = currentRosterMode === 'seatNo' 
-                    ? `模式：座號快排（在籍：${studentsData.length} 位${excludedList.length > 0 ? '，缺號：' + excludedList.join(', ') + '號' : ''}）`
+                    ? `模式：座號快排（實際入座：${studentsData.length} 位${excludedList.length > 0 ? '，缺號：' + excludedList.join(', ') + '號' : ''}）`
                     : `模式：Excel 卷軸名冊（人數：${studentsData.length} 位）`;
 
                 exportData.push([`配置：${currentCols} 排 X ${currentRows} 列`, modeNote, `紀錄時間：${new Date().toLocaleString()}`]);

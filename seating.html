@@ -474,7 +474,7 @@
             color: #2e7d32;
         }
 
-        /* 缺號與轉學管理盒 */
+        /* 缺號與未排座管理盒 */
         .missing-seats-box {
             background: #fff;
             border: 1px solid #e0e0e0;
@@ -579,7 +579,7 @@
             position: relative;
         }
 
-        /* 在籍號碼球 (正常) */
+        /* 排座號碼球 (正常) */
         .seat-pill.active {
             background: #fff9c4;
             color: var(--space-blue);
@@ -594,7 +594,7 @@
             z-index: 5;
         }
 
-        /* 缺號號碼球 (轉學) */
+        /* 缺號號碼球 (轉出／休學等) */
         .seat-pill.excluded {
             background: #eceff1;
             color: #90a4ae;
@@ -696,18 +696,18 @@
                 </div>
             </div>
 
-            <!-- 缺號（轉學）設定區塊 -->
+            <!-- 缺號（轉出／休學等）設定區塊 -->
             <div class="missing-seats-box">
                 <div class="missing-input-row">
                     <label class="missing-input-label" for="excludedInput">
-                        <span>🚫 轉學 / 缺號座號</span> (以逗號或空格隔開)：
+                        <span>🚫 缺號／不排座座號</span> (轉出、休學等，以逗號或空格隔開)：
                     </label>
                     <input type="text" id="excludedInput" class="missing-input-field" placeholder="例：3, 18（無缺號則留空）" value="" oninput="handleExcludedTextInput()">
-                    <button type="button" class="clear-exclude-btn" onclick="clearExcludedSeats()" title="還原為全部在籍">🔄 全部在籍</button>
+                    <button type="button" class="clear-exclude-btn" onclick="clearExcludedSeats()" title="還原為全班排座">🔄 全員排座</button>
                 </div>
                 
                 <div class="interactive-pills-desc">
-                    <span>💡 <span class="badge-tip">視覺化點選</span>：直接點擊下方號碼球，可一秒切換「在籍 / ❌ 轉學缺號」：</span>
+                    <span>💡 <span class="badge-tip">視覺化點選</span>：直接點擊下方號碼球，可一秒切換「納入排座 / ❌ 缺號不排」：</span>
                 </div>
 
                 <!-- 互動式號碼標籤容器 -->
@@ -924,7 +924,7 @@
                 updateRosterDataAndSummary();
             };
 
-            // 清除缺號（全部在籍）
+            // 清除缺號（全員排座）
             window.clearExcludedSeats = function() {
                 excludedSeatNumbers.clear();
                 document.getElementById('excludedInput').value = '';
@@ -932,7 +932,7 @@
                 updateRosterDataAndSummary();
             };
 
-            // 點擊號碼球切換缺號/在籍
+            // 點擊號碼球切換缺號/排座
             window.toggleSeatPill = function(num) {
                 if (excludedSeatNumbers.has(num)) {
                     excludedSeatNumbers.delete(num);
@@ -964,7 +964,7 @@
                 refreshPillsStatus();
             }
 
-            // 更新號碼球在籍/缺號視覺狀態
+            // 更新號碼球排座/缺號視覺狀態
             function refreshPillsStatus() {
                 const container = document.getElementById('seatPillsContainer');
                 if (!container) return;
@@ -973,10 +973,10 @@
                     const no = parseInt(pill.dataset.seatNo);
                     if (excludedSeatNumbers.has(no)) {
                         pill.className = 'seat-pill excluded';
-                        pill.title = `第 ${no} 號 (轉學/缺號，點擊可恢復在籍)`;
+                        pill.title = `第 ${no} 號 (缺號／不排座，點擊可納入排座)`;
                     } else {
                         pill.className = 'seat-pill active';
-                        pill.title = `第 ${no} 號 (在籍中，點擊可標記為缺號)`;
+                        pill.title = `第 ${no} 號 (排座中，點擊可設為缺號排除)`;
                     }
                 });
             }
@@ -1015,8 +1015,7 @@
                     if (summaryBadge) {
                         summaryBadge.innerHTML = `
                             全班號碼：<strong>${start} ~ ${end} 號</strong> ｜ 
-                            轉學缺號：<strong>${excludedText}</strong> ｜ 
-                            實際在籍：<span class="highlight-num">${studentsData.length}</span> 人 ｜ 
+                            排除缺號：<strong>${excludedText}</strong> ｜ 實際排座：<span class="highlight-num">${studentsData.length}</span> 人 ｜ 
                             課桌狀態：${spaceStatus}
                         `;
                     }
@@ -1083,7 +1082,7 @@
                 }
 
                 if (studentsData.length === 0) {
-                    alert(currentRosterMode === 'seatNo' ? '目前沒有在籍座號學生！請確認座號範圍與缺號設定。' : '請先匯入 Excel 名單！');
+                    alert(currentRosterMode === 'seatNo' ? '目前沒有排座學生！請確認座號範圍與缺號設定。' : '請先匯入 Excel 名單！');
                     return;
                 }
 
@@ -1091,7 +1090,7 @@
                 const activeSeats = allSeats.filter(seat => !seat.classList.contains('disabled'));
 
                 if (activeSeats.length < studentsData.length) {
-                    alert(`星球不夠了！\n在籍學生有 ${studentsData.length} 人\n可用空星球只有 ${activeSeats.length} 個。\n請點擊「重塑星系」擴充行列，或點擊長有猴麵包樹的星球將其解鎖！`);
+                    alert(`星球不夠了！\n實際排座學生有 ${studentsData.length} 人\n可用空星球只有 ${activeSeats.length} 個。\n請點擊「重塑星系」擴充行列，或點擊長有猴麵包樹的星球將其解鎖！`);
                     return;
                 }
 
@@ -1146,7 +1145,7 @@
                 
                 const excludedList = Array.from(excludedSeatNumbers).sort((a,b)=>a-b);
                 const modeNote = currentRosterMode === 'seatNo' 
-                    ? `模式：座號快排（在籍：${studentsData.length} 人${excludedList.length > 0 ? '，缺號：' + excludedList.join(', ') + '號' : ''}）`
+                    ? `模式：座號快排（實際排座：${studentsData.length} 人${excludedList.length > 0 ? '，缺號：' + excludedList.join(', ') + '號' : ''}）`
                     : `模式：Excel 名冊匯入（人數：${studentsData.length} 人）`;
 
                 exportData.push([`配置：${currentCols} 排 X ${currentRows} 列`, modeNote, `紀錄時間：${new Date().toLocaleString()}`]);
