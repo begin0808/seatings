@@ -32,6 +32,7 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            font-size: 14px;
             min-height: 100vh;
         }
 
@@ -42,7 +43,7 @@
         h1 {
             color: var(--hogwarts-gold);
             text-shadow: 2px 2px 4px #000, 0 0 15px var(--gryffindor-red);
-            font-size: 3em;
+            font-size: 2.1em;
             margin-bottom: 5px;
             text-align: center;
             letter-spacing: 2px;
@@ -78,7 +79,7 @@
             border-bottom: 2px solid var(--hogwarts-gold);
             display: inline-block;
             padding-bottom: 5px;
-            font-size: 1.5em;
+            font-size: 1.15em;
             margin-bottom: 15px;
         }
 
@@ -205,7 +206,7 @@
         }
 
         .teacher-desk {
-            font-size: 1.8em;
+            font-size: 1.35em;
             color: var(--hogwarts-gold);
             text-align: center;
             text-shadow: 0 0 10px var(--slytherin-green);
@@ -217,7 +218,7 @@
             padding: 8px 20px;
             border-radius: 8px;
             color: var(--magic-glow);
-            font-size: 1.1em;
+            font-size: 0.92em;
             box-shadow: 0 0 15px rgba(0, 255, 234, 0.2);
         }
 
@@ -256,8 +257,8 @@
 
         /* 座位 */
         .seat {
-            width: 90px;
-            height: 90px;
+            width: 74px;
+            height: 74px;
             background-color: #3e2723;
             border-radius: 6px;
             border: 2px solid #5d4037;
@@ -330,7 +331,7 @@
         /* 座號：改用清楚字體 (修改重點) */
         .seat-number {
             font-family: "Verdana", "Arial", sans-serif; /* 改用標準字體，最清楚 */
-            font-size: 1.1em;
+            font-size: 0.95em;
             font-weight: 900; /* 極粗 */
             color: #3e2723;
             position: absolute;
@@ -352,7 +353,7 @@
             margin-top: 15px;
             color: var(--slytherin-green);
             font-weight: bold;
-            font-size: 1.3em;
+            font-size: 1.05em;
             text-shadow: 0 1px 1px rgba(255,255,255,0.5);
         }
 
@@ -360,7 +361,7 @@
         
         .file-upload-label {
             display: inline-block;
-            padding: 8px 18px;
+            padding: 6px 14px; font-size: 0.9em;
             background: var(--parchment-bg);
             border: 2px dashed var(--gryffindor-red);
             border-radius: 6px;
@@ -434,7 +435,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 1.1em;
+            font-size: 0.92em;
             font-weight: bold;
             color: var(--dark-wood);
             font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
@@ -447,7 +448,7 @@
             background: #fff;
             border-radius: 4px;
             text-align: center;
-            font-size: 1.1em;
+            font-size: 0.82em;
             font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             font-weight: bold;
             color: var(--dark-wood);
@@ -461,7 +462,7 @@
         }
 
         .preset-title {
-            font-size: 0.95em;
+            font-size: 0.85em;
             color: #5d4037;
             font-weight: bold;
             font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
@@ -473,7 +474,7 @@
             color: var(--dark-wood);
             padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.95em;
+            font-size: 0.82em;
             cursor: pointer;
             font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             font-weight: bold;
@@ -515,7 +516,7 @@
         .missing-input-label {
             font-weight: bold;
             color: var(--gryffindor-red);
-            font-size: 1.05em;
+            font-size: 0.9em;
             font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
             display: flex;
             align-items: center;
@@ -526,8 +527,8 @@
             padding: 5px 12px;
             border: 2px solid var(--gryffindor-red);
             border-radius: 4px;
-            font-size: 1.1em;
-            width: 170px;
+            font-size: 0.92em;
+            width: 160px;
             text-align: center;
             font-weight: bold;
             color: var(--gryffindor-red);
@@ -546,7 +547,7 @@
             color: var(--gryffindor-red);
             border: 1px solid #ef9a9a;
             border-radius: 4px;
-            padding: 4px 10px;
+            padding: 3px 8px;
             font-size: 0.9em;
             cursor: pointer;
             font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
@@ -559,7 +560,7 @@
         }
 
         .interactive-pills-desc {
-            font-size: 0.95em;
+            font-size: 0.85em;
             color: #5d4037;
             margin-bottom: 8px;
             font-family: 'Outfit', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
@@ -589,10 +590,10 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            width: 27px;
+            height: 27px;
             border-radius: 50%;
-            font-size: 0.95em;
+            font-size: 0.82em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -727,7 +728,7 @@
                     <label class="missing-input-label" for="excludedInput">
                         <span>🚫 暫離魔法界 / 缺號座號</span> (以逗號或空格隔開)：
                     </label>
-                    <input type="text" id="excludedInput" class="missing-input-field" placeholder="例：3, 18 或 3 18" value="3, 18" oninput="handleExcludedTextInput()">
+                    <input type="text" id="excludedInput" class="missing-input-field" placeholder="例：3, 18（無缺號則留空）" value="" oninput="handleExcludedTextInput()">
                     <button type="button" class="clear-exclude-btn" onclick="clearExcludedSeats()" title="全員到齊">🔄 全員到齊</button>
                 </div>
                 
@@ -789,7 +790,7 @@
             let currentRosterMode = 'seatNo'; // 'seatNo' | 'excel'
             let excelStudentsData = [];
             let studentsData = [];
-            let excludedSeatNumbers = new Set([3, 18]); // 預設示範 3號與18號暫離缺號
+            let excludedSeatNumbers = new Set(); // 預設無缺號，全班到齊
             
             // 預設 6排 x 6列
             let currentCols = 6;
