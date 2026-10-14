@@ -632,6 +632,67 @@
             font-size: 1.15em;
             margin: 0 2px;
         }
+    
+        /* 頁尾版權資訊 */
+        .footer-credits-bar {
+            margin-top: 40px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: #e0e7ff;
+            font-size: 0.85rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            font-family: 'Outfit', 'Noto Sans TC', system-ui, sans-serif;
+        }
+
+        .footer-credits-bar .studio-link {
+            color: #fff9c4;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-credits-bar .studio-link:hover {
+            color: var(--star-gold);
+        }
+
+        .footer-credits-bar .footer-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-credits-bar .footer-mail {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-credits-bar .footer-mail:hover {
+            color: var(--star-gold);
+        }
+
+        .footer-credits-bar .footer-social {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            line-height: 1;
+        }
+
+        .footer-credits-bar .footer-social:hover {
+            transform: scale(1.15);
+        }
+    
     </style>
 </head>
 <body>
@@ -1213,5 +1274,22 @@
             updateRosterDataAndSummary();
         });
     </script>
+
+    <!-- 頁尾版權資訊 -->
+    <footer class="footer-credits-bar">
+        <div class="copyright-line">
+            © 2026 <a href="https://begin0808.github.io/studio0808/" target="_blank" rel="noopener" class="studio-link">Studio0808 智造實驗室</a>. All rights reserved.
+        </div>
+        <div class="footer-actions">
+            <a class="footer-mail" href="https://mail.google.com/mail/?view=cm&fs=1&to=begin0808%40gmail.com&su=%E5%8B%95%E6%85%8B%E5%BA%A7%E4%BD%8D%E7%B3%BB%E7%B5%B1%20%E2%80%94%20%E6%84%8F%E8%A6%8B%E5%9B%9E%E5%A0%B1" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                <span>寫信給我</span>
+            </a>
+            <a class="footer-social" href="https://www.facebook.com/begin.li.1/" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#fff"/><path d="M13.4 20v-6.6h2.2l.4-2.7h-2.6V9c0-.8.3-1.4 1.4-1.4H16V5.2c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v2.1H8.4v2.7h2.2V20z" fill="#1877f2"/></svg>
+            </a>
+        </div>
+    </footer>
+    
 </body>
 </html>
